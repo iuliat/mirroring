@@ -15,8 +15,8 @@
 #define SERVER_PORT 2222
  
 struct file_descriptor {
-	char file_path;
-	char last_date_modified;
+	char *file_path;
+	char *last_date_modified;
 	int isDirectory;
 }; 
  
@@ -107,10 +107,10 @@ int main(int argc, char *argv[]) {
 	
 	struct file_descriptor file_des;
 	
-	if (argc != 2) {
+	/*if (argc != 2) {
 		printf("Folosire : %s <f i s i e r >\n" , argv[0]);
 		exit(1);
-	}
+	}*/
 
 	//fd = open(argv[1], O_RDONLY);
 	sockfd = socket(PF_INET, SOCK_STREAM, 0);
