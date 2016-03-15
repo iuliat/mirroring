@@ -120,13 +120,13 @@ int main(int argc, char *argv[]) {
 	set_addr(&server_addr, SERVER_ADDRESS, 0, SERVER_PORT);
 	connect( sockfd , (struct sock_addr *)&server_addr, sizeof(server_addr));
 	
-	//read te file descriptor comming from server
+	//read the file descriptor comming from server
 	
 	if((nread = stream_read(sockfd, (void *)buf, 1024)) == -1){
 		printf("error reading file descriptor");
 		exit(1);
 	}
-	
+	printf("%s", buf);
 	set_file_descriptor(&file_des, buf);
 	
 	//decide if you want the file or not
