@@ -159,8 +159,7 @@ void * serverthread(void * parm)
 
    bzero(sdbuf, LENGTH); 
    int fs_block_sz; 
-   while((fs_block_sz = fread(sdbuf, sizeof(char), LENGTH, fs))>0){
-	++i;
+   while((fs_block_sz = fread(sdbuf, sizeof(char), LENGTH, fs))>0){i;
       if(send(tsd, sdbuf, fs_block_sz, 0) < 0){
              fprintf(stderr, "ERROR: Failed to send file %s. (errno = %d)\n", fs_name, errno);
              exit(1);

@@ -11,7 +11,6 @@
 #include <arpa/inet.h>
 #include <netdb.h>
 
-#define PORT 2222
 #define LENGTH 512 
 
 
@@ -29,6 +28,7 @@ int main(int argc, char *argv[])
     char revbuf[LENGTH]; 
     struct sockaddr_in remote_addr;
 
+
     /* Get the Socket file descriptor */
     if ((sockfd = socket(AF_INET, SOCK_STREAM, 0)) == -1)
     {
@@ -36,10 +36,12 @@ int main(int argc, char *argv[])
         exit(1);
     }
 
+
+
     /* Fill the socket address struct */
     remote_addr.sin_family = AF_INET; 
-    remote_addr.sin_port = htons(PORT); 
-    inet_pton(AF_INET, "127.0.0.1", &remote_addr.sin_addr); 
+    remote_addr.sin_port = htons(atoi(argv[2])); 
+    inet_pton(AF_INET, argv[1], &remote_addr.sin_addr); 
     bzero(&(remote_addr.sin_zero), 8);
 
     /* Try to connect the remote */
@@ -49,7 +51,7 @@ int main(int argc, char *argv[])
         exit(1);
     }
     else 
-        printf("[Client] Connected to server at port %d...ok!\n", PORT);
+        printf("[Client] Connected to server at port %d...ok!\n", atoi(argv[2]));
 
     
 
@@ -60,9 +62,15 @@ int main(int argc, char *argv[])
     if(fr == NULL)
         printf("File %s Cannot be opened.\n", fr_name);
     else
-    {
+    {	int fr_block_sz = recv(sockfd, revbuf, LENGTH, 0);
+	if(fr_block_sz<=0)
+		exit(1);
+	fwrite(revbuf, sizeof(char), fr_block_sz, fr);
+	
+	
+	int i=0;
         bzero(revbuf, LENGTH); 
-        int fr_block_sz = 0;
+        fr_block_sz = 0;
         while((fr_block_sz = recv(sockfd, revbuf, LENGTH, 0)) > 0)
         {
             int write_sz = fwrite(revbuf, sizeof(char), fr_block_sz, fr);
