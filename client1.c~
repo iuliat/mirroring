@@ -40,7 +40,7 @@ int main(int argc, char *argv[])
 
     /* Fill the socket address struct */
     remote_addr.sin_family = AF_INET; 
-    remote_addr.sin_port = htons(argv[2]); 
+    remote_addr.sin_port = htons(atoi(argv[2])); 
     inet_pton(AF_INET, argv[1], &remote_addr.sin_addr); 
     bzero(&(remote_addr.sin_zero), 8);
 
@@ -51,7 +51,7 @@ int main(int argc, char *argv[])
         exit(1);
     }
     else 
-        printf("[Client] Connected to server at port %d...ok!\n", argv[2]);
+        printf("[Client] Connected to server at port %d...ok!\n", atoi(argv[2]));
 
     
 
