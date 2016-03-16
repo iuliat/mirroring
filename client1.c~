@@ -11,7 +11,7 @@
 #include <arpa/inet.h>
 #include <netdb.h>
 
-#define PORT 20000
+#define PORT 2222
 #define LENGTH 512 
 
 
@@ -51,36 +51,11 @@ int main(int argc, char *argv[])
     else 
         printf("[Client] Connected to server at port %d...ok!\n", PORT);
 
-    /* Send File to Server */
-    //if(!fork())
-    //{
-        char* fs_name = "/home/aryan/Desktop/quotidiani.txt";
-        char sdbuf[LENGTH]; 
-        printf("[Client] Sending %s to the Server... ", fs_name);
-        FILE *fs = fopen(fs_name, "r");
-        if(fs == NULL)
-        {
-            printf("ERROR: File %s not found.\n", fs_name);
-            exit(1);
-        }
-
-        bzero(sdbuf, LENGTH); 
-        int fs_block_sz; 
-        while((fs_block_sz = fread(sdbuf, sizeof(char), LENGTH, fs)) > 0)
-        {
-            if(send(sockfd, sdbuf, fs_block_sz, 0) < 0)
-            {
-                fprintf(stderr, "ERROR: Failed to send file %s. (errno = %d)\n", fs_name, errno);
-                break;
-            }
-            bzero(sdbuf, LENGTH);
-        }
-        printf("Ok File %s from Client was Sent!\n", fs_name);
-    //}
+    
 
     /* Receive File from Server */
     printf("[Client] Receiveing file from Server and saving it as final.txt...");
-    char* fr_name = "/home/aryan/Desktop/progetto/final.txt";
+    char* fr_name = "/home/rainer/Desktop/lab PAD-DP/gitStuff/testForReceive.txt";
     FILE *fr = fopen(fr_name, "a");
     if(fr == NULL)
         printf("File %s Cannot be opened.\n", fr_name);

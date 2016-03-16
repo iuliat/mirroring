@@ -11,7 +11,7 @@
 #include <arpa/inet.h>
 #include <netdb.h>
 
-#define PORT 20000
+#define PORT 2222
 #define LENGTH 512 
 
 
@@ -55,8 +55,8 @@ int main(int argc, char *argv[])
 
     /* Receive File from Server */
     printf("[Client] Receiveing file from Server and saving it as final.txt...");
-    char* fr_name = "/home/rainer/Desktop/lab PAD-DP/git/mirroring/testForReceive.txt";
-    FILE *fr = fopen(fr_name, "a");
+    char* fr_name = "/home/rainer/Desktop/lab PAD-DP/gitStuff/testForReceive.txt";
+    FILE *fr = fopen(fr_name, "w");
     if(fr == NULL)
         printf("File %s Cannot be opened.\n", fr_name);
     else
